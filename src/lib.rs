@@ -14,4 +14,19 @@ impl Default for Format {
 
 impl Format {
 	pub fn new() -> Self { Self::default() }
+
+	pub fn run_with_parser(&mut self, mut parser: Parser) -> Result<String, Exception> {
+		let mut result: String = String::new();
+
+		loop {
+			result.push_str(&self.statement(match parser.next()? {
+				Some(statement) => statement,
+				None => break,
+			}));
+		}
+
+		Ok(result)
+	}
+
+	pub fn run(&mut self, ast: AbstractSyntaxTree) -> String { self.block(Block(ast.statements)) }
 }
