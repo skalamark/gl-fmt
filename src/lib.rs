@@ -11,3 +11,7 @@ pub struct Format {
 impl Default for Format {
 	fn default() -> Self { Self { hard_tabs: true, tab_spaces: 4, indent_size: 0 } }
 }
+
+impl Format {
+	pub fn new() -> Self { Self::default() }
+}
