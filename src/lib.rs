@@ -7,3 +7,7 @@ pub struct Format {
 	tab_spaces: usize,
 	indent_size: usize,
 }
+
+impl Default for Format {
+	fn default() -> Self { Self { hard_tabs: true, tab_spaces: 4, indent_size: 0 } }
+}
