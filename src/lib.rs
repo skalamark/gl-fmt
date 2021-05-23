@@ -15,6 +15,24 @@ impl Default for Format {
 impl Format {
 	pub fn new() -> Self { Self::default() }
 
+	fn get_indent_string(&self) -> String {
+		let mut indent_string: String = String::new();
+
+		if self.hard_tabs {
+			for _ in 0..self.indent_size {
+				indent_string.push_str("\t");
+			}
+		} else {
+			for _ in 0..self.indent_size {
+				for _ in 0..self.tab_spaces {
+					indent_string.push_str(" ");
+				}
+			}
+		}
+
+		indent_string
+	}
+
 	pub fn run_with_parser(&mut self, mut parser: Parser) -> Result<String, Exception> {
 		let mut result: String = String::new();
 
