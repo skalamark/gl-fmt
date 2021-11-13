@@ -114,6 +114,9 @@ impl Format {
 			Index(left, index) => {
 				format!("{}[{}]", self.expression(*left), self.expression(*index))
 			},
+			Property(p1, p2) => {
+				format!("{}::{}", self.expression(*p1), self.expression(*p2))
+			},
 		}
 	}
 
@@ -138,6 +141,7 @@ impl Format {
 	fn statement(&mut self, statement: Statement) -> String {
 		let mut result = match statement {
 			Statement::Let(name, value) => format!("let {} = {};", name, self.expression(value)),
+			Statement::LetAlter(name, value) => format!("{} = {};", name, self.expression(value)),
 			Statement::Expression(expression) => format!("{};", self.expression(expression)),
 			Statement::ExpressionReturn(expression) => self.expression(expression),
 			Statement::Fn { name, params, body } => format!(
